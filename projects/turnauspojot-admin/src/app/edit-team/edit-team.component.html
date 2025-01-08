@@ -36,6 +36,10 @@
         style="height: 100px; width: auto"
         src="/assets/logos/{{ team.logo }}"
       />
+      <app-jersey-front
+        [logo]="team.logo"
+        [color]="team.color"
+      ></app-jersey-front>
       <mat-form-field>
         <input
           type="text"
@@ -44,6 +48,14 @@
           [(ngModel)]="team.logo"
           name="logo"
         />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Väri</mat-label>
+        <mat-select placeholder="Väri" [(value)]="team.color">
+          <mat-option *ngFor="let color of colorOptions" [value]="color">
+            {{ color }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
@@ -151,8 +163,4 @@
 
 <mat-divider></mat-divider>
 
-<div class="roster">
-  <ng-container *ngFor="let p of getPlayers(team.id)">
-    <app-jersey [player]="p"></app-jersey>
-  </ng-container>
-</div>
+<app-roster [players]="getPlayers(team.id)" [color]="team.color"></app-roster>

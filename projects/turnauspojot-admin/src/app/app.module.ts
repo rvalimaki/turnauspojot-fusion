@@ -44,7 +44,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 
 import { registerLocaleData } from '@angular/common';
 import localeFi from '@angular/common/locales/fi';
-import { JerseyComponent } from './jersey/jersey.component';
 import { SharedModule } from 'shared';
 import { TournamentSelectorComponent } from 'shared';
 
@@ -63,7 +62,6 @@ registerLocaleData(localeFi);
     AddGameComponent,
     AddEventComponent,
     GeneralComponent,
-    JerseyComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,29 @@
+:host {
+  display: block;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  padding: 5em;
+
+  height: 100vh;
+  width: 100vw;
+
+  background: #fff;
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin: 5px 0;
+    background: #f9f9f9;
+  }
+  li:hover {
+    background: #eee;
+  }
+}

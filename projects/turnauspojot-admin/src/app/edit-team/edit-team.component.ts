@@ -4,10 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 import { Subscription } from 'rxjs';
-import { DbService, TournamentService } from 'shared';
+import { Colors, DbService, TournamentService } from 'shared';
 
 @Component({
-  encapsulation: ViewEncapsulation.None,
   selector: 'app-edit-team',
   templateUrl: './edit-team.component.html',
   styleUrls: ['./edit-team.component.scss'],
@@ -18,6 +17,8 @@ export class EditTeamComponent implements OnInit, OnDestroy {
   subscription?: Subscription;
   playerSubscription?: Subscription;
   private _playerDict: any = {};
+
+  colorOptions = Object.values(Colors);
 
   constructor(
     private db: DbService,

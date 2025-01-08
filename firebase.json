@@ -5,7 +5,7 @@
   "hosting": [
     {
       "site": "urjala-turnaus",
-      "public": "dist/turnauspojot",
+      "public": "dist/turnauspojot/browser",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
@@ -16,7 +16,7 @@
     },
     {
       "site": "urjala-turnaus-admin",
-      "public": "dist/turnauspojot-admin",
+      "public": "dist/turnauspojot-admin/browser",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {

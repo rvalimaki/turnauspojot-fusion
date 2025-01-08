@@ -1,9 +1,19 @@
 import { NgModule, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TournamentSelectorComponent } from './public-api';
+import {
+  JerseyComponent,
+  JerseyFrontComponent,
+  RosterComponent,
+  TournamentSelectorComponent,
+} from './public-api';
 import { RouterModule } from '@angular/router';
 
-const SHARED_COMPONENTS: Type<any>[] = [TournamentSelectorComponent];
+const SHARED_COMPONENTS: Type<any>[] = [
+  TournamentSelectorComponent,
+  JerseyComponent,
+  JerseyFrontComponent,
+  RosterComponent,
+];
 
 @NgModule({
   declarations: [...SHARED_COMPONENTS],
