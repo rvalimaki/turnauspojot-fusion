@@ -1,0 +1,73 @@
+:host {
+  .mat-raised-button {
+    min-width: 200px;
+    line-height: 3em;
+
+    font-size: 130%;
+
+    .mat-icon {
+      width: 48px;
+      height: 48px;
+      font-size: 48px;
+      margin-top: -5px;
+    }
+  }
+
+  table.tapahtumat {
+    border: 10px solid #fff;
+
+    box-shadow: 0 0 30px #bbb;
+
+    width: 96%;
+
+    border-collapse: collapse;
+
+    margin: 2%;
+
+    tr {
+      &.period {
+        background-color: #162b53;
+
+        td {
+          color: #fff;
+          text-align: center;
+
+          padding: 2em;
+        }
+      }
+
+      &.odd {
+      }
+
+      &.even {
+        background-color: #e3e6ea;
+      }
+
+      td {
+        padding: 0.5em;
+
+        &.home,
+        &.away {
+          width: 45%;
+        }
+
+        &.home {
+          text-align: right;
+        }
+
+        &.away {
+          text-align: left;
+        }
+
+        &.time {
+          width: 10%;
+
+          text-align: center;
+
+          background-color: #162b53;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+<main class="taulu">
+  <div class="header" *ngIf="title == null">
+    <h2>Pelintekijävelhot</h2>
+  </div>
+  <table>
+    <ng-container *ngFor="let p of players; let i = index">
+      <tr *ngIf="i === 0" class="eka">
+        <td class="index">{{ i + 1 }}.</td>
+        <td class="team-logo team-logo-6">
+          <img src="/assets/logos/{{ teamLogo(p.team) }}" />
+        </td>
+        <td colspan="2" class="info">
+          <span>#{{ p.number }}</span
+          ><br />
+          <span class="name"
+            >{{ p.firstName }}
+            <ng-template [ngIf]="p.funName"> "{{ p.funName }}"</ng-template>
+            {{ p.lastName }}</span
+          ><br />
+          <span>{{ teamAbbr(p.team) }}</span
+          ><br />
+          <span>{{ p.assists }}, ykkössyötöt: {{ p.primaryAssists }}</span>
+        </td>
+      </tr>
+
+      <tr *ngIf="i > 0 && i < limit" [class.odd]="i % 2 === 0">
+        <td>{{ i + 1 }}.</td>
+        <td>{{ p.firstName }} {{ p.lastName }}</td>
+        <td>{{ teamAbbr(p.team) }}</td>
+        <td>{{ p.assists }} ({{ p.primaryAssists }})</td>
+      </tr>
+    </ng-container>
+  </table>
+</main>

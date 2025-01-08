@@ -1,0 +1,35 @@
+<main>
+  <table>
+    <tr>
+      <th>#</th>
+      <th colspan="2">Joukkue</th>
+      <th>V</th>
+      <th>T</th>
+      <th>H</th>
+      <th>P</th>
+
+      <th>TM</th>
+      <th>PM</th>
+      <th>ME</th>
+      <th>Jäähyt</th>
+    </tr>
+    <tr *ngFor="let t of teams; let i = index" [class.odd]="i % 2 === 0">
+      <!--td>{{p.team}}</td-->
+      <td>{{ i + 1 }}.</td>
+      <td class="team-logo team-logo-2">
+        <img src="/assets/logos/{{ t.logo }}" />
+      </td>
+      <td>
+        {{ t.name }}
+      </td>
+      <td>{{ t.wins }}</td>
+      <td>{{ t.draws }}</td>
+      <td>{{ t.losses }}</td>
+      <td class="highlight">{{ t.points }}</td>
+      <td>+{{ t.goalsFor }}</td>
+      <td>-{{ t.goalsAgainst }}</td>
+      <td>{{ t.goalDiff }}</td>
+      <td>{{ t.penaltiesTaken }}min.</td>
+    </tr>
+  </table>
+</main>

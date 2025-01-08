@@ -1,0 +1,6 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": "auth != null && root.child('allowedEmails').child(auth.token.email.replace('.', ',')).exists()"
+  }
+}
