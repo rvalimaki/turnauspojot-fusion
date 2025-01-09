@@ -55,8 +55,12 @@ import { TournamentService } from 'shared';
           <span>Turnauspojot - </span>
           <span *ngIf="tournament.name"> {{ tournament.name }} </span>
           <span *ngIf="user | async as user"
-            >&nbsp;{{ user.displayName }}
-            <button (click)="signOut()">Kirjaudu ulos</button></span
+            >&nbsp;&nbsp;&nbsp;{{ user.displayName }}&nbsp;&nbsp;&nbsp;
+
+            <button mat-raised-button color="secondary" (click)="signOut()">
+              <mat-icon>logout</mat-icon>
+              Kirjaudu ulos
+            </button></span
           >
         </mat-toolbar>
         <router-outlet></router-outlet>

@@ -1,14 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
-import {
-  ActivatedRoute,
-  NavigationCancel,
-  NavigationEnd,
-  NavigationError,
-  NavigationStart,
-  Router,
-} from '@angular/router';
-import { filter, Observable } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, Observable, Subscription } from 'rxjs';
 import { User } from 'firebase/auth';
 import { TournamentService } from 'shared';
 
@@ -18,17 +11,22 @@ import { TournamentService } from 'shared';
     <router-outlet *ngIf="user | async as user; else signIn"></router-outlet>
 
     <ng-template #signIn>
-      <button (click)="signInWithGoogle()">
-        Kirjaudu sisään Google-tunnuksilla
-      </button>
+      <div style="width: 100vw; text-align: center; padding-top: 10vh">
+        <button mat-raised-button color="primary" (click)="signInWithGoogle()">
+          <mat-icon>login</mat-icon>
+          Kirjaudu sisään Google-tunnuksilla
+        </button>
+      </div>
     </ng-template>
   `,
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'turnaus-admin';
 
   user: Observable<User | null>;
+
+  routerSubscription?: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -38,25 +36,17 @@ export class AppComponent {
   ) {
     this.user = this.authService.getUser();
   }
+  ngOnDestroy(): void {
+    this.routerSubscription?.unsubscribe();
+  }
 
   signInWithGoogle() {
     this.authService.googleSignIn();
   }
 
   ngOnInit() {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        console.log('NavigationStart:', event.url);
-        console.trace('Triggered by:');
-      } else if (event instanceof NavigationEnd) {
-        console.log('NavigationEnd:', event.url);
-      } else if (event instanceof NavigationError) {
-        console.error('NavigationError:', event.error);
-      }
-    });
-
     // Listen to route changes
-    this.router.events
+    this.routerSubscription = this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         const currentRoute = this.getCurrentRoute();

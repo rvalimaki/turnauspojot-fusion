@@ -46,6 +46,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { BetComponent } from './bet/bet.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule, TournamentSelectorComponent } from 'shared';
+import { TeamRostersComponent } from './team-rosters/team-rosters.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { SharedModule, TournamentSelectorComponent } from 'shared';
     TopPlaymakersComponent,
     GameEventComponent,
     BetComponent,
+    TeamRostersComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -112,6 +114,7 @@ import { SharedModule, TournamentSelectorComponent } from 'shared';
                 { path: 'maalitykit', component: TopGoalScorersComponent },
                 { path: 'pelintekijat', component: TopPlaymakersComponent },
                 { path: 'sikaosasto', component: TotalPigsComponent },
+                { path: 'kokoonpanot', component: TeamRostersComponent },
                 { path: 'kooste', component: DashboardComponent },
               ],
             },

@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Component } from '@angular/core';
 import { DbService } from 'shared';
 
 @Component({
@@ -8,12 +6,10 @@ import { DbService } from 'shared';
   templateUrl: './add-teams.component.html',
   styleUrls: ['./add-teams.component.scss'],
 })
-export class AddTeamsComponent implements OnInit {
+export class AddTeamsComponent {
   team: any = {};
 
   constructor(private db: DbService) {}
-
-  ngOnInit() {}
 
   onSubmit() {
     this.db

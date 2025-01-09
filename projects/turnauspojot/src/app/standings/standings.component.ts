@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { TitleService } from '../title.service';
 import { Subscription } from 'rxjs';
@@ -9,10 +9,15 @@ import { DbService } from 'shared';
   templateUrl: './standings.component.html',
   styleUrls: ['./standings.component.scss'],
 })
-export class StandingsComponent implements OnInit {
+export class StandingsComponent implements OnInit, OnDestroy {
   @Input() title: string | null = 'Sarjataulukko';
 
   constructor(private db: DbService, private titleService: TitleService) {}
+  ngOnDestroy(): void {
+    this.playerSubscription?.unsubscribe();
+    this.teamSubscription?.unsubscribe();
+    this.gameSubscription?.unsubscribe();
+  }
 
   teams: any[] = [];
   games: any[] = [];

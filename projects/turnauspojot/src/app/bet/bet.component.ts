@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-bet',
@@ -40,7 +40,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
   `,
   styleUrls: ['./bet.component.scss'],
 })
-export class BetComponent implements OnInit {
+export class BetComponent {
   @Input() game: any;
   @Input() teamPlayersDict: any;
 
@@ -50,8 +50,6 @@ export class BetComponent implements OnInit {
   players: any[] = [];
 
   constructor() {}
-
-  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {}
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { TitleService } from '../title.service';
 import { Subscription } from 'rxjs';
 import { Helpers } from '../top-scorers/helpers';
@@ -10,7 +10,7 @@ import { DbService } from 'shared';
   templateUrl: './games.component.html',
   styleUrls: ['./games.component.scss'],
 })
-export class GamesComponent implements OnInit {
+export class GamesComponent implements OnInit, OnDestroy {
   title = 'Pelit';
 
   @Input() bet = true;
@@ -20,6 +20,12 @@ export class GamesComponent implements OnInit {
     private titleService: TitleService,
     private logos: TeamLogoService
   ) {}
+  ngOnDestroy(): void {
+    this.playerSubscription?.unsubscribe();
+    this.teamSubscription?.unsubscribe();
+    this.gameSubscription?.unsubscribe();
+    this.eventSubscription?.unsubscribe();
+  }
 
   teams: any[] = [];
   games: any[] = [];

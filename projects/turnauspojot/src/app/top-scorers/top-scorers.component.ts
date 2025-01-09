@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TitleService } from '../title.service';
 import { Helpers } from './helpers';
@@ -10,7 +10,7 @@ import { DbService } from 'shared';
   templateUrl: './top-scorers.component.html',
   styleUrls: ['./top-scorers.component.scss'],
 })
-export class TopScorersComponent implements OnInit {
+export class TopScorersComponent implements OnInit, OnDestroy {
   @Input() title: string | null = 'Pistepörssi';
   @Input() limit = 100;
 
@@ -19,6 +19,11 @@ export class TopScorersComponent implements OnInit {
     private titleService: TitleService,
     private logos: TeamLogoService
   ) {}
+  ngOnDestroy(): void {
+    this.playerSubscription?.unsubscribe();
+    this.teamSubscription?.unsubscribe();
+    this.gameSubscription?.unsubscribe();
+  }
 
   teams: any[] = [];
   games: any[] = [];

@@ -7,6 +7,7 @@ import { DbService } from './db.service';
 })
 export class TeamLogoService implements OnDestroy {
   private teamLogos: any = {};
+  private teamColors: any = {};
   private teamSubscription?: Subscription;
 
   constructor(private db: DbService) {
@@ -15,6 +16,7 @@ export class TeamLogoService implements OnDestroy {
       .subscribe((teams) => {
         for (const team of teams) {
           this.teamLogos[(<any>team).id] = (<any>team).logo;
+          this.teamColors[(<any>team).id] = (<any>team).color;
         }
       });
   }
@@ -27,5 +29,9 @@ export class TeamLogoService implements OnDestroy {
     return this.teamLogos[teamId] != null
       ? this.teamLogos[teamId]
       : 'unknown.png';
+  }
+
+  color(teamId: string) {
+    return this.teamColors[teamId] != null ? this.teamColors[teamId] : 'BLACK';
   }
 }
