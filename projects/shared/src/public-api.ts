@@ -5,6 +5,7 @@
 export * from './shared.module';
 export * from './lib/components/tournament-selector.component';
 export * from './lib/services/tournament.service';
+export * from './lib/services/team-logo.service';
 export * from './lib/services/db.service';
 export * from './lib/components/jersey/jersey.component';
 export * from './lib/components/jersey/jersey-front.component';

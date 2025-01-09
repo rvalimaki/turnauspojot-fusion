@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-
-import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { GameEvent, Goal, Penalty } from '../game-plan/game-event';
 import { AddEventComponent } from '../add-event/add-event.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -56,10 +54,9 @@ export class GameComponent implements OnInit, OnDestroy {
     const key = this.route.snapshot.params['key'];
 
     this.subscription = this.db
-      .object('games/' + key)
-      .snapshotChanges()
-      .subscribe((res) => {
-        this.game = res.payload.val();
+      .objectValueChanges('games/' + key)
+      .subscribe((value) => {
+        this.game = value;
 
         if (this.game.homeGoals < 0) {
           this.game.homeGoals = 0;
@@ -70,29 +67,25 @@ export class GameComponent implements OnInit, OnDestroy {
       });
 
     this.allGamesSubscription = this.db
-      .list('games')
-      .valueChanges()
+      .listValueChanges('games')
       .subscribe((games) => {
         this.games = games;
       });
 
     this.playerSubscription = this.db
-      .list('players')
-      .valueChanges()
+      .listValueChanges('players')
       .subscribe((players) => {
         this.setPlayerDictionary(players);
       });
 
     this.teamSubscription = this.db
-      .list('teams')
-      .valueChanges()
+      .listValueChanges('teams')
       .subscribe((teams) => {
         this.setTeamDictionary(teams);
       });
 
     this.eventSubscription = this.db
-      .list('events')
-      .valueChanges()
+      .listValueChanges('events')
       .subscribe((events) => {
         const ev: GameEvent[] = <GameEvent[]>events;
 
@@ -105,7 +98,7 @@ export class GameComponent implements OnInit, OnDestroy {
         );
 
         for (const e of this.events) {
-          e.date = isNaN(e.timestamp) ? undefined : new Date(e.timestamp);
+          e.date = isNaN(e.timestamp) ? null : new Date(e.timestamp);
         }
       });
   }
@@ -119,11 +112,11 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   isGoal(event: GameEvent): Goal | null {
-    return event.eventType === 'goal' ? event : null;
+    return event.eventType === 'goal' ? (event as Goal) : null;
   }
 
   isPenalty(event: GameEvent): Penalty | null {
-    return event.eventType === 'penalty' ? event : null;
+    return event.eventType === 'penalty' ? (event as Penalty) : null;
   }
 
   getPlayers(team: string) {

@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { AuthService } from './auth.service';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { filter, Observable } from 'rxjs';
 import { User } from 'firebase/auth';
 import { TournamentService } from 'shared';
@@ -37,13 +44,24 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        console.log('NavigationStart:', event.url);
+        console.trace('Triggered by:');
+      } else if (event instanceof NavigationEnd) {
+        console.log('NavigationEnd:', event.url);
+      } else if (event instanceof NavigationError) {
+        console.error('NavigationError:', event.error);
+      }
+    });
+
     // Listen to route changes
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         const currentRoute = this.getCurrentRoute();
-        const tournamentName = currentRoute[0] || null; // Extract tournament name from the route
-        this.tournamentService.setTournament(tournamentName ?? 'un-de-fi-ned');
+        const tournamentName = currentRoute[0]; // Extract tournament name from the route
+        this.tournamentService.setTournament(tournamentName);
       });
   }
 

@@ -31,10 +31,9 @@ export class AddGameComponent implements OnInit, OnDestroy {
     const key = this.route.snapshot.params['key'];
 
     this.gameSubscription = this.db
-      .object('games/' + key)
-      .snapshotChanges()
-      .subscribe((res) => {
-        this.game = res.payload.val();
+      .objectValueChanges('games/' + key)
+      .subscribe((value) => {
+        this.game = value;
 
         if (this.game == null) {
           this.game = { id: key };
@@ -42,8 +41,7 @@ export class AddGameComponent implements OnInit, OnDestroy {
       });
 
     this.subscription = this.db
-      .list<ViewTeamsItem>('teams')
-      .valueChanges()
+      .listValueChanges<ViewTeamsItem>('teams')
       .subscribe((data) => {
         this.teams = data;
       });

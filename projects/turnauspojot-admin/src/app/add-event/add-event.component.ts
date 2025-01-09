@@ -135,9 +135,6 @@ export class AddEventComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(JSON.stringify(this.data));
-    console.log(this.data);
-
     const team = this.data['team'];
     const eventType = this.data['eventType'];
     const gameId = this.data['id'];
@@ -152,10 +149,9 @@ export class AddEventComponent implements OnInit, OnDestroy {
     const key = gameId + '_' + number;
 
     this.eventSubscription = this.db
-      .object<GameEvent>('events/' + key)
-      .snapshotChanges()
-      .subscribe((res) => {
-        this.event = res.payload.val() ?? undefined;
+      .objectValueChanges<GameEvent>('events/' + key)
+      .subscribe((value) => {
+        this.event = value ?? undefined;
 
         if (this.goal != null) {
           this.scorerCtrl.setValue(this.getPlayerById(this.goal.player ?? ''));
@@ -174,17 +170,15 @@ export class AddEventComponent implements OnInit, OnDestroy {
         if (this.event == null) {
           switch (eventType) {
             case 'goal':
-              const goal = new Goal(
+              this.event = new Goal(
                 team,
                 gameId,
                 gameType,
                 number,
-                eventType,
                 homeAway,
-                againstTeam
+                againstTeam,
+                add
               );
-              goal.score = add;
-              this.event = goal;
 
               break;
             case 'penalty':
@@ -193,7 +187,6 @@ export class AddEventComponent implements OnInit, OnDestroy {
                 gameId,
                 gameType,
                 number,
-                eventType,
                 homeAway,
                 againstTeam
               );
@@ -209,8 +202,6 @@ export class AddEventComponent implements OnInit, OnDestroy {
             readable: this.penalty.readable ?? '',
           };
         }
-
-        console.log(this.event);
       });
   }
 
@@ -229,13 +220,15 @@ export class AddEventComponent implements OnInit, OnDestroy {
     }
 
     if (this.goal != null) {
-      this.goal.player = AddEventComponent.playerId(this.scorerCtrl);
-      this.goal.assist1 = AddEventComponent.playerId(this.assist1Ctrl);
-      this.goal.assist2 = AddEventComponent.playerId(this.assist2Ctrl);
+      this.goal.player =
+        AddEventComponent.playerId(this.scorerCtrl) ?? 'undefined';
+      this.goal.assist1 = AddEventComponent.playerId(this.assist1Ctrl) ?? null;
+      this.goal.assist2 = AddEventComponent.playerId(this.assist2Ctrl) ?? null;
     }
 
     if (this.penalty != null) {
-      this.penalty.player = AddEventComponent.playerId(this.pigCtrl);
+      this.penalty.player =
+        AddEventComponent.playerId(this.pigCtrl) ?? 'undefined';
     }
 
     this.db

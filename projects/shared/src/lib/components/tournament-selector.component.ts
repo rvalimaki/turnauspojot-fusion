@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Subscription } from 'rxjs';
+import { TournamentService } from '../services/tournament.service';
 
 @Component({
   selector: 'app-tournament-selector',
@@ -20,28 +22,42 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
   `,
   styleUrls: ['./tournament-selector.component.scss'],
 })
-export class TournamentSelectorComponent implements OnInit {
+export class TournamentSelectorComponent implements OnInit, OnDestroy {
   tournaments: string[] = [];
 
-  constructor(private router: Router, private db: AngularFireDatabase) {}
+  subscription?: Subscription;
+
+  constructor(
+    private router: Router,
+    private db: AngularFireDatabase,
+    private tournamentService: TournamentService
+  ) {}
 
   ngOnInit() {
-    this.db
+    this.subscription = this.db
       .object<{ [key: string]: any }>('/tournaments')
       .valueChanges()
-      .subscribe(
-        (tournaments) => {
+      .subscribe({
+        next: (tournaments) => {
           // Extract keys from the object
           this.tournaments = tournaments ? Object.keys(tournaments) : [];
 
-          if (this.tournaments.length === 1) {
+          if (
+            this.tournaments.length === 1 &&
+            this.tournaments[0] != '' &&
+            this.tournaments[0] != this.tournamentService.name
+          ) {
             this.selectTournament(this.tournaments[0]);
           }
         },
-        (error) => {
+        error: (error) => {
           console.error('Error fetching tournaments:', error);
-        }
-      );
+        },
+      });
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
   selectTournament(tournament: string) {

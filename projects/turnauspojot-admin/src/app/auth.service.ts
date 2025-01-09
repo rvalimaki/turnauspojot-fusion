@@ -1,16 +1,16 @@
-import { Injectable } from "@angular/core";
-import { initializeApp, getApp, getApps } from "firebase/app";
+import { Injectable } from '@angular/core';
+import { initializeApp, getApp, getApps } from 'firebase/app';
 import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
   User,
-} from "firebase/auth";
-import { BehaviorSubject, Observable } from "rxjs";
-import { firebaseConfig } from "./firebaseConfig";
+} from 'firebase/auth';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { firebaseConfig } from './firebaseConfig';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthService {
   private firebaseApp;
@@ -34,11 +34,10 @@ export class AuthService {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log("User Info:", result.user);
       this.userSubject.next(result.user);
       return result.user;
     } catch (error) {
-      console.error("Google Sign-In Error:", error);
+      console.error('Google Sign-In Error:', error);
       throw error;
     }
   }

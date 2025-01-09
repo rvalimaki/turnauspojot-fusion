@@ -1,6 +1,6 @@
 export class GameEvent {
   id: string;
-  date?: Date;
+  date: Date | null;
   timestamp: number;
   home: boolean = false;
   away: boolean = false;
@@ -33,16 +33,35 @@ export class GameEvent {
 }
 
 export class Goal extends GameEvent {
-  player?: string;
-  assist1?: string;
-  assist2?: string;
-
-  score?: string;
+  constructor(
+    team: string,
+    gameId: string,
+    gameType: string,
+    number: string,
+    homeAway: string,
+    againstTeam: string,
+    public score: string,
+    public player: string | null = null,
+    public assist1: string | null = null,
+    public assist2: string | null = null
+  ) {
+    super(team, gameId, gameType, number, 'goal', homeAway, againstTeam);
+  }
 }
 
 export class Penalty extends GameEvent {
-  player?: string;
-  readable?: string;
-  minutes?: number;
-  reason?: string;
+  constructor(
+    team: string,
+    gameId: string,
+    gameType: string,
+    number: string,
+    homeAway: string,
+    againstTeam: string,
+    public player: string | null = null,
+    public readable: string | null = null,
+    public minutes: number | null = null,
+    public reason: string | null = null
+  ) {
+    super(team, gameId, gameType, number, 'penalty', homeAway, againstTeam);
+  }
 }

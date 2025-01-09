@@ -32,17 +32,14 @@ export class ViewTeamsComponent implements OnInit, OnDestroy {
     this.dataSource = new ViewTeamsDataSource(this.paginator, this.sort);
 
     this.playerSubscription = this.db
-      .list('players')
-      .valueChanges()
+      .listValueChanges('players')
       .subscribe((players) => {
         this.setPlayerDictionary(players);
       });
 
     this.subscription = this.db
-      .list<ViewTeamsItem>('teams')
-      .valueChanges()
+      .listValueChanges<ViewTeamsItem>('teams')
       .subscribe((data) => {
-        console.log('data streaming');
         this.dataSource = new ViewTeamsDataSource(this.paginator, this.sort);
         this.dataSource.data = data;
       });

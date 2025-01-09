@@ -28,22 +28,19 @@ export class StandingsComponent implements OnInit {
     }
 
     this.gameSubscription = this.db
-      .list('games')
-      .valueChanges()
+      .listValueChanges('games')
       .subscribe((games) => {
         this.games = games;
       });
 
     this.playerSubscription = this.db
-      .list('players')
-      .valueChanges()
+      .listValueChanges('players')
       .subscribe((players) => {
         this.players = players;
       });
 
     this.teamSubscription = this.db
-      .list('teams')
-      .valueChanges()
+      .listValueChanges('teams')
       .subscribe((teams) => {
         this.teams = teams;
 

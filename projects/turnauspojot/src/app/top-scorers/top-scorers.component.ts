@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { TitleService } from '../title.service';
 import { Helpers } from './helpers';
-import { TeamLogoService } from '../services/team-logo.service';
+import { TeamLogoService } from 'shared';
 import { DbService } from 'shared';
 
 @Component({
@@ -35,15 +34,13 @@ export class TopScorersComponent implements OnInit {
     }
 
     this.gameSubscription = this.db
-      .list('games')
-      .valueChanges()
+      .listValueChanges('games')
       .subscribe((games) => {
         this.games = games;
       });
 
     this.playerSubscription = this.db
-      .list('players')
-      .valueChanges()
+      .listValueChanges('players')
       .subscribe((players) => {
         this.players = (<any>players).filter(
           (p) => p.points != null && p.points > 0
@@ -53,8 +50,7 @@ export class TopScorersComponent implements OnInit {
       });
 
     this.teamSubscription = this.db
-      .list('teams')
-      .valueChanges()
+      .listValueChanges('teams')
       .subscribe((teams) => {
         this.teams = teams;
       });

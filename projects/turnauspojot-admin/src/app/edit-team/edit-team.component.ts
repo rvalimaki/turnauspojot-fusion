@@ -1,8 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { AngularFireDatabase } from '@angular/fire/compat/database';
-
 import { Subscription } from 'rxjs';
 import { Colors, DbService, TournamentService } from 'shared';
 
@@ -31,18 +28,14 @@ export class EditTeamComponent implements OnInit, OnDestroy {
     const key = this.route.snapshot.params['key'];
 
     this.subscription = this.db
-      .object('teams/' + key)
-      .snapshotChanges()
-      .subscribe((res) => (this.team = res.payload.val()));
+      .objectValueChanges('teams/' + key)
+      .subscribe((value) => (this.team = value));
 
     this.playerSubscription = this.db
-      .list('players')
-      .valueChanges()
+      .listValueChanges('players')
       .subscribe((players) => {
         this.setPlayerDictionary(players);
       });
-
-    setTimeout(() => console.log(this.team), 2000);
   }
 
   ngOnDestroy() {

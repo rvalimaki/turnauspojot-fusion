@@ -48,14 +48,12 @@ export class AddPlayerComponent implements OnInit, OnDestroy {
 
     if (key != null && key !== '') {
       this.playerSubscription = this.db
-        .object('players/' + key)
-        .snapshotChanges()
-        .subscribe((res) => (this.player = res.payload.val()));
+        .objectValueChanges('players/' + key)
+        .subscribe((p) => (this.player = p));
     }
 
     this.subscription = this.db
-      .list<ViewTeamsItem>('teams')
-      .valueChanges()
+      .listValueChanges<ViewTeamsItem>('teams')
       .subscribe((data) => {
         this.teams = data;
 

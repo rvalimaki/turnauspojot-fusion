@@ -8,8 +8,19 @@ export class TournamentService {
   private tournamentSubject = new BehaviorSubject<string | null>(null);
   tournament$ = this.tournamentSubject.asObservable();
 
-  setTournament(tournament: string) {
-    this.tournamentSubject.next(tournament);
+  currentTournament = '';
+
+  setTournament(tournament: string | undefined) {
+    if (tournament == null) {
+      return;
+    }
+
+    if (tournament != this.currentTournament) {
+      console.log('Switching to tournament: ' + tournament);
+
+      this.currentTournament = tournament;
+      this.tournamentSubject.next(tournament);
+    }
   }
 
   get name(): string | null {

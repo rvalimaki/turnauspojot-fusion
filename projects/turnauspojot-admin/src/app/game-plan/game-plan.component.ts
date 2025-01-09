@@ -137,25 +137,20 @@ export class GamePlanComponent implements OnInit, OnDestroy {
     this.dataSource = new GamePlanDatasource(this.paginator, this.sort);
 
     this.playerSubscription = this.db
-      .list('players')
-      .valueChanges()
+      .listValueChanges('players')
       .subscribe((players) => {
         this.setPlayerDictionary(players);
       });
 
     this.teamSubscription = this.db
-      .list('teams')
-      .valueChanges()
+      .listValueChanges('teams')
       .subscribe((teams) => {
         this.setTeamDictionary(teams);
       });
 
     this.subscription = this.db
-      .list<GamePlanItem>('games')
-      .valueChanges()
+      .listValueChanges<GamePlanItem>('games')
       .subscribe((data) => {
-        console.log('data streaming');
-
         if (data.length > 0) {
           data.sort((a, b) => a.id.localeCompare(b.id, [], { numeric: true }));
           this.nextGameId = parseInt(data[data.length - 1].id, 10) + 1;

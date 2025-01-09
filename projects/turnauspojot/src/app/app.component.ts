@@ -23,8 +23,8 @@ export class AppComponent {
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         const currentRoute = this.getCurrentRoute();
-        const tournamentName = currentRoute[0] || null; // Extract tournament name from the route
-        this.tournamentService.setTournament(tournamentName ?? 'un-de-fi-ned');
+        const tournamentName = currentRoute[0]; // Extract tournament name from the route
+        this.tournamentService.setTournament(tournamentName);
       });
   }
 

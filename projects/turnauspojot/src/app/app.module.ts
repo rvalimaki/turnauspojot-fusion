@@ -45,7 +45,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { BetComponent } from './bet/bet.component';
 import { FormsModule } from '@angular/forms';
-import { TeamLogoService } from './services/team-logo.service';
 import { SharedModule, TournamentSelectorComponent } from 'shared';
 
 @NgModule({
@@ -127,6 +126,6 @@ import { SharedModule, TournamentSelectorComponent } from 'shared';
     ),
     FormsModule,
   ],
-  providers: [TeamLogoService, provideHttpClient(withInterceptorsFromDi())],
+  providers: [provideHttpClient(withInterceptorsFromDi())],
 })
 export class AppModule {}
