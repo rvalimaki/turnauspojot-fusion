@@ -18,7 +18,7 @@ import { DbService } from 'shared';
               <img src="/assets/logos/{{ t.logo }}" />
             </td>
             <td>
-              <h1>{{ t.name }}</h1>
+              <h2>{{ t.name }}</h2>
             </td>
             <td>
               <app-jersey-front

@@ -28,7 +28,11 @@
                 "glob": "**/*",
                 "input": "assets",
                 "output": "/assets"
-              }
+              },
+              "projects/turnauspojot/src/favicon.ico",
+              "projects/turnauspojot/src/manifest.json",
+              "projects/turnauspojot/src/manifest.webmanifest",
+              "projects/turnauspojot/src/robots.txt"
             ],
             "styles": ["projects/turnauspojot/src/styles.scss"],
             "scripts": []
