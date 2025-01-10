@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -96,10 +96,16 @@ import { TeamRostersComponent } from './team-rosters/team-rosters.component';
 
     RouterModule.forRoot(
       [
-        {
-          path: '',
-          component: TournamentSelectorComponent, // Root path for tournament selection
-        },
+        { path: '', component: TournamentSelectorComponent },
+        { path: 'pelit', component: TournamentSelectorComponent },
+        { path: 'sarjataulukko', component: TournamentSelectorComponent },
+        { path: 'pistekunkut', component: TournamentSelectorComponent },
+        { path: 'maalitykit', component: TournamentSelectorComponent },
+        { path: 'pelintekijat', component: TournamentSelectorComponent },
+        { path: 'sikaosasto', component: TournamentSelectorComponent },
+        { path: 'kokoonpanot', component: TournamentSelectorComponent },
+        { path: 'kooste', component: TournamentSelectorComponent },
+        { path: 'dashboard', component: TournamentSelectorComponent },
         {
           path: ':tournament',
           children: [
@@ -128,6 +134,12 @@ import { TeamRostersComponent } from './team-rosters/team-rosters.component';
       { useHash: true }
     ),
     FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
 })
