@@ -33,6 +33,7 @@ import { DbService } from 'shared';
               <td colSpan="4" style="padding: 2em;">
                 <app-roster
                   [players]="teamPlayersDict[t.id]"
+                  [team]="t"
                   [color]="t.color"
                 ></app-roster>
               </td>

@@ -163,4 +163,8 @@
 
 <mat-divider></mat-divider>
 
-<app-roster [players]="getPlayers(team.id)" [color]="team.color"></app-roster>
+<app-roster
+  [players]="getPlayers(team.id)"
+  [team]="team"
+  [color]="team.color"
+></app-roster>

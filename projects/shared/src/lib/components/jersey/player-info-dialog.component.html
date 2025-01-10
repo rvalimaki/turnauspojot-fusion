@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-header [ngClass]="data.team.color">
+    #{{ data.player.number }} {{ data.player.firstName }} "{{
+      data.player.funName || "The Player"
+    }}" {{ data.player.lastName }}
+  </mat-card-header>
+  <mat-card-content>
+    <p><strong>Pisteet:</strong> {{ data.player.points }}</p>
+    <p><strong>Maalit:</strong> {{ data.player.goals }}</p>
+    <p>
+      <strong>Syötöt:</strong> {{ data.player.assists }} ({{
+        data.player.primaryAssists
+      }}
+      + {{ data.player.secondaryAssists }})
+    </p>
+    <br />
+    <p><strong>Jäähyminuutit:</strong> {{ data.player.penalties }}</p>
+  </mat-card-content>
+</mat-card>

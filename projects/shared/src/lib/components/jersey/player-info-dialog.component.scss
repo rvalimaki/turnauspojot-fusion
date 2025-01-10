@@ -1,0 +1,39 @@
+@import "colors";
+
+mat-card {
+  margin: 0;
+}
+
+mat-card-header {
+  margin: 0;
+  padding: 1em;
+  color: #fff;
+  font-weight: bold;
+
+  background-color: $BLACK;
+
+  &.BLACK {
+    background-color: $BLACK;
+  }
+  &.PERHE_RED {
+    background-color: $PERHE_RED;
+  }
+  &.PERHE_BLUE {
+    background-color: $PERHE_BLUE;
+  }
+  &.SUNSET_ORANGE {
+    background-color: $SUNSET_ORANGE;
+  }
+  &.HURRICANE_GREEN {
+    background-color: $HURRICANE_GREEN;
+  }
+}
+
+mat-card-content {
+  margin: 0;
+  padding: 1em;
+
+  p {
+    margin: 0;
+  }
+}

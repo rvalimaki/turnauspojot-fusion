@@ -1,4 +1,6 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, HostListener, Input } from '@angular/core';
+import { PlayerInfoDialogComponent } from './player-info-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-jersey',
@@ -10,7 +12,18 @@ import { Component, HostBinding, Input } from '@angular/core';
 })
 export class JerseyComponent {
   @Input() player: any;
+  @Input() team: any;
   @Input() color: string = '';
+
+  constructor(private dialog: MatDialog) {}
+
+  @HostListener('click')
+  openPlayerDialog() {
+    this.dialog.open(PlayerInfoDialogComponent, {
+      data: { player: this.player, team: this.team },
+      width: '400px',
+    });
+  }
 
   @HostBinding('class') get classes() {
     if (

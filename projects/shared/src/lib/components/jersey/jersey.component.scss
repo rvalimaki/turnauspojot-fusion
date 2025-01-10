@@ -1,6 +1,8 @@
 @import "colors";
 
 :host {
+  user-select: none;
+
   @include svg-background-with-shadow($jerseyPath, svg-color($BLACK));
 
   &.PERHE_RED {
@@ -21,6 +23,8 @@
       svg-color($HURRICANE_GREEN)
     );
   }
+
+  cursor: pointer;
 
   --jersey-size: 90px;
 
